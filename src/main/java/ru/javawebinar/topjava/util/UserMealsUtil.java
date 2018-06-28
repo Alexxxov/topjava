@@ -28,7 +28,7 @@ public class UserMealsUtil {
     }
 
     public static List<UserMealWithExceed>  getFilteredWithExceeded(List<UserMeal> mealList, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
-        Map<LocalDate, Integer> filteredDatesAndCaloriesSum = mealList.parallelStream().collect(Collectors.groupingBy(userMeal -> userMeal.getDateTime().toLocalDate(),
+        Map<LocalDate, Integer> filteredDatesAndCaloriesSum = mealList.stream().collect(Collectors.groupingBy(userMeal -> userMeal.getDateTime().toLocalDate(),
                 Collectors.summingInt(UserMeal::getCalories)));
 
         return mealList.stream().filter(userMeal -> TimeUtil.isBetween(userMeal.getDateTime().toLocalTime(),startTime,endTime))
